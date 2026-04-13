@@ -1,0 +1,301 @@
+{
+  "courses": [
+    {
+      "id": "CS101",
+      "name": "Intro to Programming",
+      "professor_id": "P_A",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "CS102",
+      "name": "Algorithms",
+      "professor_id": "P_A",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "CS201",
+      "name": "Artificial Intelligence",
+      "professor_id": "P_B",
+      "required_capacity": 45,
+      "duration": 2
+    },
+    {
+      "id": "CS202",
+      "name": "Machine Learning",
+      "professor_id": "P_C",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "CS301",
+      "name": "Data Structures",
+      "professor_id": "P_B",
+      "required_capacity": 30,
+      "duration": 2
+    }
+  ],
+  "professors": [
+    {
+      "id": "P_A",
+      "name": "Prof. Alpha",
+      "available_slots": [
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 10
+        }
+      ]
+    },
+    {
+      "id": "P_B",
+      "name": "Prof. Beta",
+      "available_slots": [
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 14
+        }
+      ]
+    },
+    {
+      "id": "P_C",
+      "name": "Prof. Gamma",
+      "available_slots": [
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        }
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "R1",
+      "name": "Salle 101",
+      "capacity": 30
+    },
+    {
+      "id": "R2",
+      "name": "Salle 102",
+      "capacity": 50
+    },
+    {
+      "id": "R3",
+      "name": "Amphi A",
+      "capacity": 100
+    }
+  ],
+  "timeslots": [
+    {
+      "day": 0,
+      "hour": 8
+    },
+    {
+      "day": 0,
+      "hour": 10
+    },
+    {
+      "day": 0,
+      "hour": 14
+    },
+    {
+      "day": 0,
+      "hour": 16
+    },
+    {
+      "day": 2,
+      "hour": 8
+    },
+    {
+      "day": 2,
+      "hour": 10
+    },
+    {
+      "day": 2,
+      "hour": 14
+    },
+    {
+      "day": 2,
+      "hour": 16
+    },
+    {
+      "day": 4,
+      "hour": 8
+    },
+    {
+      "day": 4,
+      "hour": 10
+    },
+    {
+      "day": 4,
+      "hour": 14
+    },
+    {
+      "day": 4,
+      "hour": 16
+    }
+  ],
+  "max_daily_courses": 3
+}

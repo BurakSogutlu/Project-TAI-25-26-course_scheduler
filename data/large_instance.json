@@ -1,0 +1,1193 @@
+{
+  "courses": [
+    {
+      "id": "C00",
+      "name": "Course_0",
+      "professor_id": "P1",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C01",
+      "name": "Course_1",
+      "professor_id": "P3",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C02",
+      "name": "Course_2",
+      "professor_id": "P0",
+      "required_capacity": 30,
+      "duration": 2
+    },
+    {
+      "id": "C03",
+      "name": "Course_3",
+      "professor_id": "P1",
+      "required_capacity": 50,
+      "duration": 2
+    },
+    {
+      "id": "C04",
+      "name": "Course_4",
+      "professor_id": "P3",
+      "required_capacity": 30,
+      "duration": 2
+    },
+    {
+      "id": "C05",
+      "name": "Course_5",
+      "professor_id": "P7",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C06",
+      "name": "Course_6",
+      "professor_id": "P8",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C07",
+      "name": "Course_7",
+      "professor_id": "P9",
+      "required_capacity": 50,
+      "duration": 2
+    },
+    {
+      "id": "C08",
+      "name": "Course_8",
+      "professor_id": "P7",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C09",
+      "name": "Course_9",
+      "professor_id": "P7",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C10",
+      "name": "Course_10",
+      "professor_id": "P3",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C11",
+      "name": "Course_11",
+      "professor_id": "P1",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C12",
+      "name": "Course_12",
+      "professor_id": "P5",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C13",
+      "name": "Course_13",
+      "professor_id": "P6",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C14",
+      "name": "Course_14",
+      "professor_id": "P0",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C15",
+      "name": "Course_15",
+      "professor_id": "P0",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C16",
+      "name": "Course_16",
+      "professor_id": "P5",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C17",
+      "name": "Course_17",
+      "professor_id": "P3",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C18",
+      "name": "Course_18",
+      "professor_id": "P3",
+      "required_capacity": 50,
+      "duration": 2
+    },
+    {
+      "id": "C19",
+      "name": "Course_19",
+      "professor_id": "P7",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C20",
+      "name": "Course_20",
+      "professor_id": "P6",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C21",
+      "name": "Course_21",
+      "professor_id": "P4",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C22",
+      "name": "Course_22",
+      "professor_id": "P3",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C23",
+      "name": "Course_23",
+      "professor_id": "P7",
+      "required_capacity": 50,
+      "duration": 2
+    },
+    {
+      "id": "C24",
+      "name": "Course_24",
+      "professor_id": "P1",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C25",
+      "name": "Course_25",
+      "professor_id": "P8",
+      "required_capacity": 20,
+      "duration": 2
+    },
+    {
+      "id": "C26",
+      "name": "Course_26",
+      "professor_id": "P1",
+      "required_capacity": 25,
+      "duration": 2
+    },
+    {
+      "id": "C27",
+      "name": "Course_27",
+      "professor_id": "P2",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C28",
+      "name": "Course_28",
+      "professor_id": "P7",
+      "required_capacity": 40,
+      "duration": 2
+    },
+    {
+      "id": "C29",
+      "name": "Course_29",
+      "professor_id": "P3",
+      "required_capacity": 40,
+      "duration": 2
+    }
+  ],
+  "professors": [
+    {
+      "id": "P0",
+      "name": "Professor_0",
+      "available_slots": [
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 14
+        }
+      ]
+    },
+    {
+      "id": "P1",
+      "name": "Professor_1",
+      "available_slots": [
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 14
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "Professor_2",
+      "available_slots": [
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 10
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 8
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "Professor_3",
+      "available_slots": [
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 10
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 10
+        }
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "Professor_4",
+      "available_slots": [
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 16
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 8
+        }
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "Professor_5",
+      "available_slots": [
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 14
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 14
+        }
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "Professor_6",
+      "available_slots": [
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 14
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        }
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "Professor_7",
+      "available_slots": [
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 8
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 8
+        }
+      ]
+    },
+    {
+      "id": "P8",
+      "name": "Professor_8",
+      "available_slots": [
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 8
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 0,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 10
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 1,
+          "hour": 10
+        }
+      ]
+    },
+    {
+      "id": "P9",
+      "name": "Professor_9",
+      "available_slots": [
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 8
+        },
+        {
+          "day": 0,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 10
+        },
+        {
+          "day": 1,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 14
+        },
+        {
+          "day": 4,
+          "hour": 16
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 14
+        },
+        {
+          "day": 2,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 14
+        },
+        {
+          "day": 0,
+          "hour": 8
+        },
+        {
+          "day": 3,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 10
+        },
+        {
+          "day": 4,
+          "hour": 14
+        },
+        {
+          "day": 1,
+          "hour": 16
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 10
+        }
+      ],
+      "preferred_slots": [
+        {
+          "day": 1,
+          "hour": 10
+        },
+        {
+          "day": 3,
+          "hour": 8
+        },
+        {
+          "day": 2,
+          "hour": 16
+        },
+        {
+          "day": 0,
+          "hour": 10
+        }
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "R0",
+      "name": "Room 0",
+      "capacity": 100
+    },
+    {
+      "id": "R1",
+      "name": "Room 1",
+      "capacity": 25
+    },
+    {
+      "id": "R2",
+      "name": "Room 2",
+      "capacity": 25
+    },
+    {
+      "id": "R3",
+      "name": "Room 3",
+      "capacity": 100
+    },
+    {
+      "id": "R4",
+      "name": "Room 4",
+      "capacity": 40
+    },
+    {
+      "id": "R5",
+      "name": "Room 5",
+      "capacity": 30
+    },
+    {
+      "id": "R6",
+      "name": "Room 6",
+      "capacity": 30
+    },
+    {
+      "id": "R7",
+      "name": "Room 7",
+      "capacity": 30
+    }
+  ],
+  "timeslots": [
+    {
+      "day": 0,
+      "hour": 8
+    },
+    {
+      "day": 0,
+      "hour": 10
+    },
+    {
+      "day": 0,
+      "hour": 14
+    },
+    {
+      "day": 0,
+      "hour": 16
+    },
+    {
+      "day": 1,
+      "hour": 8
+    },
+    {
+      "day": 1,
+      "hour": 10
+    },
+    {
+      "day": 1,
+      "hour": 14
+    },
+    {
+      "day": 1,
+      "hour": 16
+    },
+    {
+      "day": 2,
+      "hour": 8
+    },
+    {
+      "day": 2,
+      "hour": 10
+    },
+    {
+      "day": 2,
+      "hour": 14
+    },
+    {
+      "day": 2,
+      "hour": 16
+    },
+    {
+      "day": 3,
+      "hour": 8
+    },
+    {
+      "day": 3,
+      "hour": 10
+    },
+    {
+      "day": 3,
+      "hour": 14
+    },
+    {
+      "day": 3,
+      "hour": 16
+    },
+    {
+      "day": 4,
+      "hour": 8
+    },
+    {
+      "day": 4,
+      "hour": 10
+    },
+    {
+      "day": 4,
+      "hour": 14
+    },
+    {
+      "day": 4,
+      "hour": 16
+    }
+  ],
+  "max_daily_courses": 4
+}
