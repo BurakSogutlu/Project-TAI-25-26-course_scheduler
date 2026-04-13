@@ -40,8 +40,8 @@ course_scheduler/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/<your-username>/course-scheduler-ai.git
-cd course_scheduler
+git clone https://github.com/<your-username>/Project-TAI-25-26-course_scheduler.git
+cd Project-TAI-25-26-course_scheduler
 
 # 2. Install dependencies
 pip install -r requirements.txt
