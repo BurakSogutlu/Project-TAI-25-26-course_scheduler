@@ -7,11 +7,11 @@ from core.constraints import ConstraintChecker
 
 
 def resoudre_hill_climbing(instance_path, iterations=50):
-    # 1. Préparation 
+    #Préparation 
     probleme = CourseScheduleProblem.from_json(instance_path)
     verificateur = ConstraintChecker(probleme)
     
-    # 2. Solution initiale aléatoire
+    #Solution initiale
     planning_actuel = Schedule(probleme)
     for cours in probleme.courses:
         creneau = random.choice(probleme.timeslots)
@@ -22,7 +22,7 @@ def resoudre_hill_climbing(instance_path, iterations=50):
     
     print(f"Hill Climbing - Score de départ : {score_actuel:.4f}")
 
-    # 3. Boucle d'amélioration
+    # amélioration
     for i in range(iterations):
         # On choisit un voisin au hasard (Move ou Swap)
         if random.random() < 0.5:
@@ -126,6 +126,6 @@ if __name__ == "__main__":
     planning, score_sa = resoudre_local_search(chemin)
     time_sa = time.time() - start_sa
     
-    print("\n--- COMPARISON ---")
+    print("\n COMPARISON ")
     print(f"Hill Climbing: Score = {score_hc:.2f}, Time = {time_hc:.2f}s")
     print(f"Simulated Annealing: Score = {score_sa:.2f}, Time = {time_sa:.2f}s")
