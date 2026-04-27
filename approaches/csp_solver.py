@@ -120,7 +120,7 @@ class CSPSolver:
 
     def _static_degree_score(self, course: Course, unassigned: list) -> int:
         """
-        [MODIFICATION] Static Degree heuristic: fast calculation based ONLY on 
+        Static Degree heuristic: fast calculation based ONLY on 
         professor bottlenecks (the absolute strongest constraint, H1).
         Returns a negative count so that min() picks the highest degree.
         """
@@ -130,7 +130,7 @@ class CSPSolver:
 
     def _dynamic_degree_score(self, course: Course, unassigned: list, domains: dict) -> int:
         """
-        [AJOUT] Dynamic Degree heuristic: computes the exact number of real binary 
+        Dynamic Degree heuristic: computes the exact number of real binary 
         constraints with other unassigned variables based on CURRENT domains.
         
         Two courses are connected if:
@@ -166,7 +166,7 @@ class CSPSolver:
 
     def _select_variable(self, unassigned: list, domains: dict) -> Course:
         """
-        [MODIFICATION] Choose the next variable to assign.
+        Choose the next variable to assign.
         Priority: MRV -> Dynamic Degree OR Static Degree (tie-breaker) -> natural order.
         """
         if self.use_mrv:
