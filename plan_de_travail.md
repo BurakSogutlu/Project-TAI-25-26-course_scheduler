@@ -68,21 +68,21 @@ Planifier automatiquement les horaires de cours d'une université en respectant 
 PHASE 0 (Semaine 0) : Préparation
   └── [BURAK] Recherche, lecture du cours, élaboration du plan et répartition
 
-PHASE 1 (Semaine 1-2) : Fondations — PARALLÈLE
+PHASE 1 (Semaine 1-2) : Fondations
   ├── [BURAK] Formulation + Architecture générale + GitHub
   ├── [Gregoire]    Approche A : CSP
   ├── [Urielle
 ]    Approche B : Local Search
   └── [Nasssim]    Approche C : Modélisation RL
 
-PHASE 2 (Semaine 2-3) : Développement — PARTIELLEMENT PARALLÈLE
+PHASE 2 (Semaine 2-3) : Développement 
   ├── [BURAK] Évaluation expérimentale + métriques
   ├── [Gregoire]    Finalisation CSP + tests
   ├── [Urielle
 ]    Finalisation Simulated Annealing + tests
   └── [Nasssim]    Finalisation Q-Learning + tests
 
-PHASE 3 (Semaine 4) : Intégration + Rapport — SÉQUENTIEL
+PHASE 3 (Semaine 4) : Intégration + Rapport 
   └── [TOUS] Rapport AAAI + Présentation orale
 ```
 
