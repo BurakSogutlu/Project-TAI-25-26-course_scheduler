@@ -164,6 +164,53 @@ def make_large_instance(seed: int = 42) -> CourseScheduleProblem:
     )
 
 
+def make_extra_large_instance(seed: int = 42) -> CourseScheduleProblem:
+    """
+    Extra large instance: 150 courses, 30 professors, 8 rooms.
+    Tests extreme scalability (almost 95% density).
+    """
+    rng = random.Random(seed)
+
+    rooms = [
+        Room(f"R{i}", f"Room {i}", capacity=rng.choice([25, 30, 40, 50, 80, 100]))
+        for i in range(8)
+    ]
+
+    professors = [
+        Professor(
+            id=f"P{i}",
+            name=f"Professor_{i}",
+            available_slots=rng.sample(ALL_SLOTS, k=rng.randint(15, len(ALL_SLOTS))),
+            preferred_slots=[],
+        )
+        for i in range(30)
+    ]
+    # Set preferred slots as a random subset of available
+    for prof in professors:
+        if prof.available_slots:
+            prof.preferred_slots = rng.sample(
+                prof.available_slots, k=min(4, len(prof.available_slots))
+            )
+
+    courses = [
+        Course(
+            id=f"C{i:03d}",
+            name=f"Course_{i}",
+            professor_id=f"P{rng.randint(0, 29)}",
+            required_capacity=rng.choice([20, 25, 30, 40, 50]),
+        )
+        for i in range(150)
+    ]
+
+    return CourseScheduleProblem(
+        courses=courses,
+        professors=professors,
+        rooms=rooms,
+        timeslots=ALL_SLOTS,
+        max_daily_courses=6,
+    )
+
+
 # Random instance generator (parametric) — for scalability experiments
 
 def make_random_instance(
@@ -229,6 +276,7 @@ if __name__ == "__main__":
         "small_instance":  make_small_instance(),
         "medium_instance": make_medium_instance(),
         "large_instance":  make_large_instance(),
+        "extra_large_instance": make_extra_large_instance(),
     }
 
     for name, problem in instances.items():
