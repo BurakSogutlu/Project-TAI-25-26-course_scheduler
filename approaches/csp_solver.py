@@ -44,7 +44,7 @@ class CSPSolver:
         # Pluggable heuristics
         self.use_mrv            = use_mrv
         self.use_degree         = use_degree
-        self.use_dynamic_degree = use_dynamic_degree # [AJOUT]
+        self.use_dynamic_degree = use_dynamic_degree 
         self.use_lcv            = use_lcv
         self.use_fc             = use_fc
         self.use_ac3            = use_ac3
