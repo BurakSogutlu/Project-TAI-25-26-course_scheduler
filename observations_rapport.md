@@ -20,15 +20,15 @@ Ce document rassemble de manière structurée toutes les conclusions tirées de 
 
 Dans le benchmark, nous avons délibérément utilisé le **Forward Checking** (`use_fc=True`) plutôt que l'AC-3 (`use_ac3=True`). Ce choix est justifié empiriquement et mérite d'être explicité dans le rapport.
 
-| Critère | Forward Checking (FC) | AC-3 |
-|---|---|---|
-| **Propagation** | Vérifie uniquement les voisins directs de la variable assignée | Propage en cascade sur **tous** les arcs entre variables non-assignées |
-| **Coût calcul** | Faible — O(d) par assignation | Élevé — O(cd³) par assignation |
-| **Risque de blocage** | Légèrement plus élevé | Plus faible (détecte plus tôt les impasses) |
-| **Vitesse brute** | Plus rapide | Plus lent mais plus "intelligent" |
+| Critère                    | Forward Checking (FC)                                            | AC-3                                                                         |
+| --------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Propagation**       | Vérifie uniquement les voisins directs de la variable assignée | Propage en cascade sur**tous** les arcs entre variables non-assignées |
+| **Coût calcul**      | Faible — O(d) par assignation                                   | Élevé — O(cd³) par assignation                                           |
+| **Risque de blocage** | Légèrement plus élevé                                        | Plus faible (détecte plus tôt les impasses)                                |
+| **Vitesse brute**     | Plus rapide                                                      | Plus lent mais plus "intelligent"                                            |
 
-*   **Justification empirique :** Nos expériences montrent que le FC a suffi à trouver des solutions avec **0 backtrack** jusqu'à 125 cours. Cela prouve que les heuristiques (MRV + Degree) sont suffisamment puissantes pour notre problème spécifique. Ajouter l'AC-3 ralentirait tous les points du graphe sans bénéfice mesurable sur nos instances.
-*   **Quand préférer AC-3 :** Sur des instances à très haute densité où le FC ne parvient pas à éviter les backtracks massifs. Dans notre cas, c'est l'explosion combinatoire (trop de cours, trop peu de créneaux) qui bloque le CSP, et non l'absence de propagation d'arcs.
+* **Justification empirique :** Nos expériences montrent que le FC a suffi à trouver des solutions avec **0 backtrack** jusqu'à 125 cours. Cela prouve que les heuristiques (MRV + Degree) sont suffisamment puissantes pour notre problème spécifique. Ajouter l'AC-3 ralentirait tous les points du graphe sans bénéfice mesurable sur nos instances.
+* **Quand préférer AC-3 :** Sur des instances à très haute densité où le FC ne parvient pas à éviter les backtracks massifs. Dans notre cas, c'est l'explosion combinatoire (trop de cours, trop peu de créneaux) qui bloque le CSP, et non l'absence de propagation d'arcs.
 
 ### CSP Anytime (avec Timeout)
 
@@ -59,7 +59,7 @@ Dans le benchmark, nous avons délibérément utilisé le **Forward Checking** (
   * **Le Biais du Temps d'Exécution :** Sur les graphes, le temps du Q-Learning semble stagner ou diminuer sur les immenses instances. **Ceci est un biais méthodologique forcé.** Pour empêcher l'algorithme de tourner pendant des jours, nous avons artificiellement réduit son nombre d'épisodes d'entraînement (1000 épisodes pour 5 cours... contre seulement 2 épisodes pour 150 cours).
   * **Conséquence du Biais :** À cause de ce manque d'entraînement sur les grandes instances, l'agent "devine" au hasard, ce qui explique pourquoi ses violations dures explosent et son soft score s'effondre. Le Q-Learning n'est fondamentalement pas adapté à la résolution "from scratch" de gros problèmes combinatoires sans l'aide de Deep Learning (Deep Q-Network).
 
-### Perspectives d'amélioration du Q-Learning (Pour la section "Discussion")
+### Perspectives d'amélioration du Q-Learning
 
 Si le Q-Learning classique (Tabulaire) échoue à construire un planning de A à Z à cause de la malédiction de la dimensionnalité, il pourrait être utilisé de manière **hybride** :
 
