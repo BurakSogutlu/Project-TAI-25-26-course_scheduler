@@ -16,6 +16,20 @@ Ce document rassemble de manière structurée toutes les conclusions tirées de 
 * **Limites :**
   * **Explosion combinatoire (Scalabilité) :** Dès que la densité de l'instance devient trop forte (ex: 150 cours, 95% de remplissage), les heuristiques ne suffisent plus. Le CSP s'étouffe dans des millions de backtracks et tourne à l'infini.
 
+### Choix de propagation : Forward Checking (FC) vs AC-3
+
+Dans le benchmark, nous avons délibérément utilisé le **Forward Checking** (`use_fc=True`) plutôt que l'AC-3 (`use_ac3=True`). Ce choix est justifié empiriquement et mérite d'être explicité dans le rapport.
+
+| Critère | Forward Checking (FC) | AC-3 |
+|---|---|---|
+| **Propagation** | Vérifie uniquement les voisins directs de la variable assignée | Propage en cascade sur **tous** les arcs entre variables non-assignées |
+| **Coût calcul** | Faible — O(d) par assignation | Élevé — O(cd³) par assignation |
+| **Risque de blocage** | Légèrement plus élevé | Plus faible (détecte plus tôt les impasses) |
+| **Vitesse brute** | Plus rapide | Plus lent mais plus "intelligent" |
+
+*   **Justification empirique :** Nos expériences montrent que le FC a suffi à trouver des solutions avec **0 backtrack** jusqu'à 125 cours. Cela prouve que les heuristiques (MRV + Degree) sont suffisamment puissantes pour notre problème spécifique. Ajouter l'AC-3 ralentirait tous les points du graphe sans bénéfice mesurable sur nos instances.
+*   **Quand préférer AC-3 :** Sur des instances à très haute densité où le FC ne parvient pas à éviter les backtracks massifs. Dans notre cas, c'est l'explosion combinatoire (trop de cours, trop peu de créneaux) qui bloque le CSP, et non l'absence de propagation d'arcs.
+
 ### CSP Anytime (avec Timeout)
 
 * **Le concept :** Il trouve la même première solution que le CSP Classique, la sauvegarde, puis force un échec pour explorer le reste de l'arbre en quête d'un meilleur score, jusqu'à ce que le chronomètre l'arrête.
