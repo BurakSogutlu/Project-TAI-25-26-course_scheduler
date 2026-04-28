@@ -6,9 +6,8 @@ from core.schedule import Schedule
 from core.constraints import ConstraintChecker
 
 
-def resoudre_hill_climbing(instance_path, iterations=50):
+def resoudre_hill_climbing(probleme: CourseScheduleProblem, iterations=50):
     #Préparation 
-    probleme = CourseScheduleProblem.from_json(instance_path)
     verificateur = ConstraintChecker(probleme)
     
     #Solution initiale
@@ -43,10 +42,9 @@ def resoudre_hill_climbing(instance_path, iterations=50):
     return planning_actuel, score_actuel
 
 
-def resoudre_local_search(instance_path):
+def resoudre_local_search(probleme: CourseScheduleProblem, iterations=4000):
     # chargement et preparation 
     # On récupère les données du problème et l'outil de vérification des contraintes
-    probleme = CourseScheduleProblem.from_json(instance_path)
     verificateur = ConstraintChecker(probleme)
     
     # création d'une solution  (Même si elle est mauvaise)
@@ -68,7 +66,6 @@ def resoudre_local_search(instance_path):
     # parametre Simulated Annealing
     temperature = 10.0      # "L'agitation" initiale pour explorer
     refroidissement = 0.995  # À chaque étape, on diminue l'agitation de 1%
-    iterations = 4000       # Nombre d'essais pour s'améliorer
 
     print(f"Début de la recherche locale et le  Score de départ est  : {score_actuel}")
 
@@ -113,17 +110,28 @@ def resoudre_local_search(instance_path):
 
     return meilleur_planning, meilleur_score
 
+
+# Standalone solver function — interface expected by metrics.py
+def solve(problem: CourseScheduleProblem, iterations=4000) -> Schedule:
+    """
+    Entry point called by evaluation/metrics.py.
+    """
+    planning, score = resoudre_local_search(problem, iterations=iterations)
+    return planning
+
+
 if __name__ == "__main__":
-    chemin = "data/medium_instance.json"
+    chemin = "data/instance_15.json"
+    probleme_test = CourseScheduleProblem.from_json(chemin)
     
     # Test Hill Climbing
     start_hc = time.time()
-    planning, score_hc = resoudre_hill_climbing(chemin, iterations=1000)
+    planning, score_hc = resoudre_hill_climbing(probleme_test, iterations=1000)
     time_hc = time.time() - start_hc
     
     # Test Simulated Annealing
     start_sa = time.time()
-    planning, score_sa = resoudre_local_search(chemin)
+    planning, score_sa = resoudre_local_search(probleme_test)
     time_sa = time.time() - start_sa
     
     print("\n COMPARISON ")

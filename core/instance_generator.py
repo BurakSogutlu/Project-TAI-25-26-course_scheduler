@@ -28,9 +28,9 @@ ALL_SLOTS = [TimeSlot(day=d, hour=h) for d in DAYS for h in HOURS]
 
 # Pre-defined realistic instances (hand-crafted)
 
-def make_small_instance() -> CourseScheduleProblem:
+def make_instance_05() -> CourseScheduleProblem:
     """
-    Small instance: 5 courses, 3 professors, 3 rooms.
+    Instance 05: 5 courses, 3 professors, 3 rooms.
     """
     rooms = [
         Room("R1", "Salle 101", capacity=30),
@@ -68,9 +68,9 @@ def make_small_instance() -> CourseScheduleProblem:
     )
 
 
-def make_medium_instance(seed: int = 42) -> CourseScheduleProblem:
+def make_instance_15(seed: int = 42) -> CourseScheduleProblem:
     """
-    Medium instance: 15 courses, 6 professors, 5 rooms.
+    Instance 15: 15 courses, 6 professors, 5 rooms.
     """
     rng = random.Random(seed)
 
@@ -117,9 +117,9 @@ def make_medium_instance(seed: int = 42) -> CourseScheduleProblem:
     )
 
 
-def make_large_instance(seed: int = 42) -> CourseScheduleProblem:
+def make_instance_30(seed: int = 42) -> CourseScheduleProblem:
     """
-    Large instance: 30 courses, 10 professors, 8 rooms.
+    Instance 30: 30 courses, 10 professors, 8 rooms.
     Tests scalability of each approach.
     """
     rng = random.Random(seed)
@@ -164,9 +164,147 @@ def make_large_instance(seed: int = 42) -> CourseScheduleProblem:
     )
 
 
-def make_extra_large_instance(seed: int = 42) -> CourseScheduleProblem:
+def make_instance_60(seed: int = 42) -> CourseScheduleProblem:
     """
-    Extra large instance: 150 courses, 30 professors, 8 rooms.
+    Instance 60: 60 courses, 15 professors, 8 rooms.
+    """
+    rng = random.Random(seed)
+
+    rooms = [
+        Room(f"R{i}", f"Room {i}", capacity=rng.choice([25, 30, 40, 50, 80, 100]))
+        for i in range(8)
+    ]
+
+    professors = [
+        Professor(
+            id=f"P{i}",
+            name=f"Professor_{i}",
+            available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
+            preferred_slots=[],
+        )
+        for i in range(15)
+    ]
+    # Set preferred slots as a random subset of available
+    for prof in professors:
+        if prof.available_slots:
+            prof.preferred_slots = rng.sample(
+                prof.available_slots, k=min(4, len(prof.available_slots))
+            )
+
+    courses = [
+        Course(
+            id=f"C{i:02d}",
+            name=f"Course_{i}",
+            professor_id=f"P{rng.randint(0, 14)}",
+            required_capacity=rng.choice([20, 25, 30, 40, 50]),
+        )
+        for i in range(60)
+    ]
+
+    return CourseScheduleProblem(
+        courses=courses,
+        professors=professors,
+        rooms=rooms,
+        timeslots=ALL_SLOTS,
+        max_daily_courses=4,
+    )
+
+
+def make_instance_100(seed: int = 42) -> CourseScheduleProblem:
+    """
+    Instance 100: 100 courses, 20 professors, 8 rooms.
+    """
+    rng = random.Random(seed)
+
+    rooms = [
+        Room(f"R{i}", f"Room {i}", capacity=rng.choice([25, 30, 40, 50, 80, 100]))
+        for i in range(8)
+    ]
+
+    professors = [
+        Professor(
+            id=f"P{i}",
+            name=f"Professor_{i}",
+            available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
+            preferred_slots=[],
+        )
+        for i in range(20)
+    ]
+    # Set preferred slots as a random subset of available
+    for prof in professors:
+        if prof.available_slots:
+            prof.preferred_slots = rng.sample(
+                prof.available_slots, k=min(4, len(prof.available_slots))
+            )
+
+    courses = [
+        Course(
+            id=f"C{i:03d}",
+            name=f"Course_{i}",
+            professor_id=f"P{rng.randint(0, 19)}",
+            required_capacity=rng.choice([20, 25, 30, 40, 50]),
+        )
+        for i in range(100)
+    ]
+
+    return CourseScheduleProblem(
+        courses=courses,
+        professors=professors,
+        rooms=rooms,
+        timeslots=ALL_SLOTS,
+        max_daily_courses=5,
+    )
+
+
+def make_instance_125(seed: int = 42) -> CourseScheduleProblem:
+    """
+    Instance 125: 125 courses, 25 professors, 8 rooms.
+    """
+    rng = random.Random(seed)
+
+    rooms = [
+        Room(f"R{i}", f"Room {i}", capacity=rng.choice([25, 30, 40, 50, 80, 100]))
+        for i in range(8)
+    ]
+
+    professors = [
+        Professor(
+            id=f"P{i}",
+            name=f"Professor_{i}",
+            available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
+            preferred_slots=[],
+        )
+        for i in range(25)
+    ]
+    # Set preferred slots as a random subset of available
+    for prof in professors:
+        if prof.available_slots:
+            prof.preferred_slots = rng.sample(
+                prof.available_slots, k=min(4, len(prof.available_slots))
+            )
+
+    courses = [
+        Course(
+            id=f"C{i:03d}",
+            name=f"Course_{i}",
+            professor_id=f"P{rng.randint(0, 24)}",
+            required_capacity=rng.choice([20, 25, 30, 40, 50]),
+        )
+        for i in range(125)
+    ]
+
+    return CourseScheduleProblem(
+        courses=courses,
+        professors=professors,
+        rooms=rooms,
+        timeslots=ALL_SLOTS,
+        max_daily_courses=5,
+    )
+
+
+def make_instance_150(seed: int = 42) -> CourseScheduleProblem:
+    """
+    Instance 150: 150 courses, 30 professors, 8 rooms.
     Tests extreme scalability (almost 95% density).
     """
     rng = random.Random(seed)
@@ -273,10 +411,13 @@ if __name__ == "__main__":
     data_dir.mkdir(exist_ok=True)
 
     instances = {
-        "small_instance":  make_small_instance(),
-        "medium_instance": make_medium_instance(),
-        "large_instance":  make_large_instance(),
-        "extra_large_instance": make_extra_large_instance(),
+        "instance_05":  make_instance_05(),
+        "instance_15":  make_instance_15(),
+        "instance_30":  make_instance_30(),
+        "instance_60":  make_instance_60(),
+        "instance_100": make_instance_100(),
+        "instance_125": make_instance_125(),
+        "instance_150": make_instance_150(),
     }
 
     for name, problem in instances.items():
