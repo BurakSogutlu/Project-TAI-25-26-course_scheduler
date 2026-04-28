@@ -21,7 +21,7 @@ Le problème complet est contenu dans un objet `CourseScheduleProblem` :
 from core.problem import CourseScheduleProblem
 
 # Charger depuis un fichier JSON
-problem = CourseScheduleProblem.from_json("data/small_instance.json")
+problem = CourseScheduleProblem.from_json("data/instance_05.json")
 
 # Ce que vous pouvez utiliser :
 problem.courses          # Liste de tous les cours à planifier
@@ -165,7 +165,7 @@ from core.constraints import ConstraintChecker
 from approaches.csp_solver import CSPSolver  # ou votre fichier
 
 # 1. Charger le problème
-problem = CourseScheduleProblem.from_json("data/small_instance.json")
+problem = CourseScheduleProblem.from_json("data/instance_05.json")
 
 # 2. Résoudre
 solver = CSPSolver(problem)

@@ -216,10 +216,10 @@ class QLearningScheduler:
                 # Compute reward: full objective on current schedule
                 reward = self.checker.objective(schedule)
 
-                # Compute next state features (for remaining courses)
-                remaining = courses[i + 1:]
+                # Compute next state features (for the IMMEDIATE next course only, as per sequential MDP)
                 next_features_list = []
-                for next_course in remaining:
+                if i + 1 < len(courses):
+                    next_course = courses[i + 1]
                     for next_slot, next_room in self.problem.domain(next_course):
                         f = self._get_features(next_course, next_slot, next_room, schedule)
                         next_features_list.append(f)
@@ -282,7 +282,7 @@ class QLearningScheduler:
 # Standalone solver function — interface expected by metrics.py
 
 
-def solve(problem: CourseScheduleProblem) -> Schedule:
+def solve(problem: CourseScheduleProblem, n_episodes: int = 1000) -> Schedule:
     """
     Entry point called by evaluation/metrics.py.
 
@@ -290,7 +290,7 @@ def solve(problem: CourseScheduleProblem) -> Schedule:
         from approaches.q_learning import solve
         schedule = solve(problem)
     """
-    scheduler = QLearningScheduler(problem, n_episodes=1000)
+    scheduler = QLearningScheduler(problem, n_episodes=n_episodes)
     return scheduler.solve()
 
 # Quick test — run directly to verify on small instance
@@ -301,7 +301,7 @@ if __name__ == "__main__":
     from core.constraints import ConstraintChecker
 
     print("Loading small instance...")
-    problem = CourseScheduleProblem.from_json("data/small_instance.json")
+    problem = CourseScheduleProblem.from_json("data/instance_05.json")
 
     print("Training Q-Learning agent (1000 episodes)...")
     scheduler = QLearningScheduler(problem, n_episodes=1000)

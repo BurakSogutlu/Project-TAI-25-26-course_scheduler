@@ -253,7 +253,7 @@ class CSPSolver:
             )
             return self.best_solution
 
-        print("✗ Aucune solution trouvée.")
+        print("Aucune solution trouvée.")
         return None
 
     def _backtrack(self, schedule: Schedule) -> bool:

@@ -25,11 +25,16 @@ course_scheduler/
 │   └── q_learning.py       # Approach C: Q-Learning (P4)
 ├── evaluation/
 │   ├── metrics.py          # Shared evaluation metrics
-│   └── run_experiments.py  # Run all approaches and generate comparison plots
+│   ├── run_experiments.py  # Run all approaches and generate comparison plots
+│   └── plots/              # Directory containing the generated graphs
 ├── data/
-│   ├── small_instance.json   # 5 courses, 3 professors, 3 rooms
-│   ├── medium_instance.json  # 15 courses, 6 professors, 5 rooms
-│   └── large_instance.json   # 30 courses, 10 professors, 8 rooms
+│   ├── instance_05.json      # 5 courses, 3 professors, 3 rooms
+│   ├── instance_15.json      # 15 courses, 6 professors, 5 rooms
+│   ├── instance_30.json      # 30 courses, 10 professors, 8 rooms
+│   ├── instance_60.json      # 60 courses, 15 professors, 8 rooms
+│   ├── instance_100.json     # 100 courses, 20 professors, 8 rooms
+│   ├── instance_125.json     # 125 courses, 25 professors, 8 rooms
+│   └── instance_150.json     # 150 courses, 30 professors, 8 rooms
 ├── .gitignore
 ├── requirements.txt
 ├── plan_de_travail.md
@@ -50,9 +55,9 @@ pip install -r requirements.txt
 python core/instance_generator.py
 
 # 4. Run a specific approach
-python approaches/csp_solver.py --instance data/small_instance.json
-python approaches/local_search.py --instance data/medium_instance.json
-python approaches/q_learning.py --instance data/small_instance.json
+python approaches/csp_solver.py --instance data/instance_05.json
+python approaches/local_search.py --instance data/instance_15.json
+python approaches/q_learning.py --instance data/instance_05.json
 
 # 5. Run full comparison experiments
 python evaluation/run_experiments.py
