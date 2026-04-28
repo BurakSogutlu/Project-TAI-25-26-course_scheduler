@@ -9,7 +9,7 @@ build/
 venv/
 *.log
 results/
-*.png
+# *.png (removed to allow benchmark plots)
 *.pdf
 .DS_Store
 Thumbs.db
