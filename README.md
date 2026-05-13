@@ -18,7 +18,7 @@ course_scheduler/
 │   ├── problem.py              # CourseScheduleProblem — shared data model
 │   ├── schedule.py             # Schedule — schedule representation
 │   ├── constraints.py          # ConstraintChecker — hard/soft constraint evaluation
-│   └── instance_generator.py  # Random instance generator (small/medium/large)
+│   └── instance_generator.py  # Random instance generator
 ├── approaches/
 │   ├── csp_solver.py           # Approach A: CSP + Backtracking + MRV/LCV/FC
 │   ├── csp_solver_timeout.py   # Approach A (Anytime): continues after first solution
@@ -38,9 +38,9 @@ course_scheduler/
 │   ├── instance_125.json       # 125 courses, 25 professors, 8 rooms
 │   └── instance_150.json       # 150 courses, 30 professors, 8 rooms
 ├── Rapport/
-│   ├── INFO-H410_Groupe9.tex   # Full report (AAAI 2026 format)
-│   ├── INFO-H410_Groupe9.pdf   # Compiled report
-│   ├── presentation_groupe9.tex  # Beamer presentation slides
+│   ├── INFO-H410_Groupe9.tex   # Latex report
+│   ├── INFO-H410_Groupe9.pdf   # PDF compiled report
+│   ├── presentation_groupe9.tex  # Presentation slides
 │   ├── presentation_groupe9.pdf  # Compiled slides
 │   └── references.bib          # Bibliography
 ├── .gitignore
