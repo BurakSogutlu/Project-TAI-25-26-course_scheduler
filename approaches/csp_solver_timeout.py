@@ -262,3 +262,24 @@ class CSPSolver:
             self.backtrack_count += 1
 
         return False
+
+
+if __name__ == "__main__":
+    import time
+    from core.problem import CourseScheduleProblem
+    from core.constraints import ConstraintChecker
+
+    problem  = CourseScheduleProblem.from_json("data/instance_15.json")
+    solver   = CSPSolver(problem, use_mrv=True, use_degree=True, use_lcv=True, use_fc=True, time_limit=30.0)
+    start    = time.time()
+    schedule = solver.solve()
+    elapsed  = time.time() - start
+
+    if schedule:
+        checker = ConstraintChecker(problem)
+        print(f"Best solution found in {elapsed:.2f}s (30s budget)")
+        print(f"Hard violations : {checker.hard_violations(schedule)}")
+        print(f"Soft score      : {checker.soft_score(schedule):.3f}")
+        print(f"Backtracks      : {solver.backtrack_count}")
+    else:
+        print(f"No solution found within time limit ({elapsed:.2f}s)")

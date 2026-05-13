@@ -66,6 +66,8 @@ python -m core.instance_generator
 python evaluation/run_experiments.py
 
 # 5. Run a quick test for a specific approach (from project root)
+python -m approaches.csp_solver
+python -m approaches.csp_solver_timeout
 python -m approaches.local_search
 python -m approaches.q_learning
 ```
