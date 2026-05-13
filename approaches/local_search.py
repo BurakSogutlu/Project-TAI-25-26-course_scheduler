@@ -1,3 +1,11 @@
+"""
+Local Search
+
+Two approaches to course scheduling via neighbourhood search:
+Hill Climbing (greedy) and Simulated Annealing (probabilistic acceptance).
+Both start from a random complete assignment and iteratively improve it.
+"""
+
 import math
 import random
 import time
@@ -7,133 +15,97 @@ from core.constraints import ConstraintChecker
 
 
 def resoudre_hill_climbing(probleme: CourseScheduleProblem, iterations=50):
-    #Préparation 
-    verificateur = ConstraintChecker(probleme)
-    
-    #Solution initiale
-    planning_actuel = Schedule(probleme)
-    for cours in probleme.courses:
-        creneau = random.choice(probleme.timeslots)
-        salle = random.choice(probleme.rooms)
-        planning_actuel.assign(cours, creneau, salle)
+    checker = ConstraintChecker(probleme)
 
-    score_actuel = verificateur.objective(planning_actuel)
-    
-    print(f"Hill Climbing - Score de départ : {score_actuel:.4f}")
+    # Random initial schedule (may violate constraints)
+    schedule = Schedule(probleme)
+    for course in probleme.courses:
+        schedule.assign(course, random.choice(probleme.timeslots), random.choice(probleme.rooms))
 
-    # amélioration
-    for i in range(iterations):
-        # On choisit un voisin au hasard (Move ou Swap)
+    current_score = checker.objective(schedule)
+    print(f"Hill Climbing — initial score: {current_score:.4f}")
+
+    for _ in range(iterations):
         if random.random() < 0.5:
             c = random.choice(probleme.courses)
-            voisin = planning_actuel.move_neighbour(c, random.choice(probleme.timeslots), random.choice(probleme.rooms))
+            neighbour = schedule.move_neighbour(c, random.choice(probleme.timeslots), random.choice(probleme.rooms))
         else:
             c1, c2 = random.sample(probleme.courses, 2)
-            voisin = planning_actuel.swap_neighbour(c1, c2)
-        
-        score_voisin = verificateur.objective(voisin)
+            neighbour = schedule.swap_neighbour(c1, c2)
 
-        # On n'accepte que le meilleur 
-        if score_voisin >= score_actuel:
-            planning_actuel = voisin
-            score_actuel = score_voisin
+        neighbour_score = checker.objective(neighbour)
+        if neighbour_score >= current_score:
+            schedule      = neighbour
+            current_score = neighbour_score
 
-    print(f"Hill Climbing - Score final : {score_actuel:.4f}")
-    return planning_actuel, score_actuel
+    print(f"Hill Climbing — final score: {current_score:.4f}")
+    return schedule, current_score
 
 
 def resoudre_local_search(probleme: CourseScheduleProblem, iterations=4000):
-    # chargement et preparation 
-    # On récupère les données du problème et l'outil de vérification des contraintes
-    verificateur = ConstraintChecker(probleme)
-    
-    # création d'une solution  (Même si elle est mauvaise)
-    # On remplit le planning au hasard pour avoir une base 
-    planning_actuel = Schedule(probleme)
-    for cours in probleme.courses:
-        creneau = random.choice(probleme.timeslots)
-        salle = random.choice(probleme.rooms)
-        planning_actuel.assign(cours, creneau, salle)
+    checker = ConstraintChecker(probleme)
 
-   # print("\n PLANNINING INITIALE")
-    #planning_actuel.pretty_print()
-    score_actuel = verificateur.objective(planning_actuel)
-    
-    # On garde toujours une trace du meilleur planning trouvé jusqu'ici
-    meilleur_planning = planning_actuel.copy()
-    meilleur_score = score_actuel
+    # Random initial schedule (may violate constraints)
+    schedule = Schedule(probleme)
+    for course in probleme.courses:
+        schedule.assign(course, random.choice(probleme.timeslots), random.choice(probleme.rooms))
 
-    # parametre Simulated Annealing
-    temperature = 10.0      # "L'agitation" initiale pour explorer
-    refroidissement = 0.995  # À chaque étape, on diminue l'agitation de 1%
+    current_score = checker.objective(schedule)
+    best_schedule = schedule.copy()
+    best_score    = current_score
 
-    print(f"Début de la recherche locale et le  Score de départ est  : {score_actuel}")
+    # Simulated Annealing parameters
+    temperature  = 10.0
+    cooling_rate = 0.995
 
-    # L'amélioration itérative
+    print(f"Simulated Annealing — initial score: {current_score}")
+
     for i in range(iterations):
-        # probabilité de 50pourcent pour choisir l'action
         if random.random() < 0.5:
-            cours_au_hasard = random.choice(probleme.courses)
-            nouveau_creneau = random.choice(probleme.timeslots)
-            nouvelle_salle = random.choice(probleme.rooms)
-            voisin = planning_actuel.move_neighbour(cours_au_hasard, nouveau_creneau, nouvelle_salle)
-            type_action = "Move"
+            c = random.choice(probleme.courses)
+            neighbour = schedule.move_neighbour(c, random.choice(probleme.timeslots), random.choice(probleme.rooms))
         else:
-            # On choisit deux cours différents au hasard
             c1, c2 = random.sample(probleme.courses, 2)
-            voisin = planning_actuel.swap_neighbour(c1, c2)
-            type_action = "Swap"
-        score_voisin = verificateur.objective(voisin)
-   
-        #on vérifie si le changement va etre accepter 
-        # Si c'est mieux, on accepte tout de suite !
-        # Si c'est moins bon, on peut quand même accepter grâce à la "température" pour eviter d'etre bloquer
-     
-        diff = score_voisin - score_actuel
-        if diff > 0 or (temperature > 0 and random.random() < math.exp(diff / temperature)):
-            planning_actuel = voisin
-            score_actuel = score_voisin
+            neighbour = schedule.swap_neighbour(c1, c2)
 
-            # Si c'est le record absolu, on le sauvegarde
-            if score_actuel > meilleur_score:
-                meilleur_planning = planning_actuel.copy()
-               # print("\n meilleur planning actuel")
-               # meilleur_planning.pretty_print()
-                meilleur_score = score_actuel
+        neighbour_score = checker.objective(neighbour)
+        delta           = neighbour_score - current_score
 
-        # On refroidit un petit peu
-        temperature *= refroidissement
+        # Accept improvements immediately; accept worse moves with probability e^(delta/T)
+        if delta > 0 or (temperature > 0 and random.random() < math.exp(delta / temperature)):
+            schedule      = neighbour
+            current_score = neighbour_score
 
-        # Petit message pour suivre l'avancement
+            if current_score > best_score:
+                best_schedule = schedule.copy()
+                best_score    = current_score
+
+        temperature *= cooling_rate
+
         if i % 1000 == 0:
-            print(f"Essai {i} : Score actuel = {score_actuel:.2f}")
+            print(f"Iteration {i}: score = {current_score:.2f}")
 
-    return meilleur_planning, meilleur_score
+    return best_schedule, best_score
 
 
-# Standalone solver function — interface expected by metrics.py
 def solve(problem: CourseScheduleProblem, iterations=4000) -> Schedule:
-    """
-    Entry point called by evaluation/metrics.py.
-    """
-    planning, score = resoudre_local_search(problem, iterations=iterations)
-    return planning
+    """Entry point called by evaluation/metrics.py."""
+    schedule, _ = resoudre_local_search(problem, iterations=iterations)
+    return schedule
 
 
 if __name__ == "__main__":
-    chemin = "data/instance_15.json"
-    probleme_test = CourseScheduleProblem.from_json(chemin)
-    
-    # Test Hill Climbing
+    chemin  = "data/instance_15.json"
+    problem = CourseScheduleProblem.from_json(chemin)
+
     start_hc = time.time()
-    planning, score_hc = resoudre_hill_climbing(probleme_test, iterations=1000)
+    _, score_hc = resoudre_hill_climbing(problem, iterations=1000)
     time_hc = time.time() - start_hc
-    
-    # Test Simulated Annealing
+
     start_sa = time.time()
-    planning, score_sa = resoudre_local_search(probleme_test)
+    _, score_sa = resoudre_local_search(problem)
     time_sa = time.time() - start_sa
-    
-    print("\n COMPARISON ")
-    print(f"Hill Climbing: Score = {score_hc:.2f}, Time = {time_hc:.2f}s")
-    print(f"Simulated Annealing: Score = {score_sa:.2f}, Time = {time_sa:.2f}s")
+
+    print("\nComparison")
+    print(f"Hill Climbing:       score = {score_hc:.2f}, time = {time_hc:.2f}s")
+    print(f"Simulated Annealing: score = {score_sa:.2f}, time = {time_sa:.2f}s")

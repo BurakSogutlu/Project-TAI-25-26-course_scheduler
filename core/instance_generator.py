@@ -1,9 +1,7 @@
 """
 Instance Generator
 
-Generates small, medium, and large course scheduling problem instances.
-Both random instances and hand-crafted realistic instances are provided.
-
+Generates course scheduling problem instances of varying sizes.
 Instances are saved to data/ as JSON files for reproducibility.
 """
 
@@ -14,33 +12,22 @@ from core.problem import (
     CourseScheduleProblem, Course, Professor, Room, TimeSlot
 )
 
-
-# Standard timeslot grid — Mon–Fri, 2-hour blocks
-# Morning  : 08h–10h, 10h–12h
-# Afternoon: 14h–16h, 16h–18h
-
-HOURS = [8, 10, 14, 16]           # start hour of each 2-hour block
-DAYS  = [0, 1, 2, 3, 4]           # 0=Mon … 4=Fri
+# Standard timeslot grid: Mon–Fri, four 2-hour blocks per day
+HOURS = [8, 10, 14, 16]
+DAYS  = [0, 1, 2, 3, 4]
 
 ALL_SLOTS = [TimeSlot(day=d, hour=h) for d in DAYS for h in HOURS]
-# Total: 5 days × 4 slots = 20 slots
 
-
-# Pre-defined realistic instances (hand-crafted)
 
 def make_instance_05() -> CourseScheduleProblem:
-    """
-    Instance 05: 5 courses, 3 professors, 3 rooms.
-    """
+    """5 courses, 3 professors, 3 rooms."""
     rooms = [
         Room("R1", "Salle 101", capacity=30),
         Room("R2", "Salle 102", capacity=50),
         Room("R3", "Amphi A",   capacity=100),
     ]
 
-    # Each professor is available Mon/Wed/Fri
-    mwf_days = [0, 2, 4]
-    mwf_slots = [TimeSlot(day=d, hour=h) for d in mwf_days for h in HOURS]
+    mwf_slots = [TimeSlot(day=d, hour=h) for d in [0, 2, 4] for h in HOURS]
 
     professors = [
         Professor("P_A", "Prof. Alpha",  available_slots=mwf_slots,
@@ -60,18 +47,13 @@ def make_instance_05() -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=mwf_slots,
-        max_daily_courses=3,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=mwf_slots, max_daily_courses=3,
     )
 
 
 def make_instance_15(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 15: 15 courses, 6 professors, 5 rooms.
-    """
+    """15 courses, 6 professors, 5 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -82,11 +64,9 @@ def make_instance_15(seed: int = 42) -> CourseScheduleProblem:
         Room("R5", "Labo Info",  capacity=25),
     ]
 
-    all_slots = ALL_SLOTS
-
     professors = [
-        Professor(f"P{i}", f"Prof_{i}", available_slots=all_slots,
-                  preferred_slots=rng.sample(all_slots, k=4))
+        Professor(f"P{i}", f"Prof_{i}", available_slots=ALL_SLOTS,
+                  preferred_slots=rng.sample(ALL_SLOTS, k=4))
         for i in range(6)
     ]
 
@@ -99,29 +79,18 @@ def make_instance_15(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     courses = [
-        Course(
-            id=f"C{i:02d}",
-            name=name,
-            professor_id=f"P{i % 6}",
-            required_capacity=cap,
-        )
+        Course(id=f"C{i:02d}", name=name, professor_id=f"P{i % 6}", required_capacity=cap)
         for i, (name, cap) in enumerate(course_templates)
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=all_slots,
-        max_daily_courses=4,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=4,
     )
 
 
 def make_instance_30(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 30: 30 courses, 10 professors, 8 rooms.
-    Tests scalability of each approach.
-    """
+    """30 courses, 10 professors, 8 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -131,24 +100,19 @@ def make_instance_30(seed: int = 42) -> CourseScheduleProblem:
 
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Professor_{i}",
+            id=f"P{i}", name=f"Professor_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=rng.randint(10, len(ALL_SLOTS))),
             preferred_slots=[],
         )
         for i in range(10)
     ]
-    # Set preferred slots as a random subset of available
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:02d}",
-            name=f"Course_{i}",
+            id=f"C{i:02d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, 9)}",
             required_capacity=rng.choice([20, 25, 30, 40, 50]),
         )
@@ -156,18 +120,13 @@ def make_instance_30(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=4,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=4,
     )
 
 
 def make_instance_60(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 60: 60 courses, 15 professors, 8 rooms.
-    """
+    """60 courses, 15 professors, 8 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -177,24 +136,19 @@ def make_instance_60(seed: int = 42) -> CourseScheduleProblem:
 
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Professor_{i}",
+            id=f"P{i}", name=f"Professor_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
             preferred_slots=[],
         )
         for i in range(15)
     ]
-    # Set preferred slots as a random subset of available
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:02d}",
-            name=f"Course_{i}",
+            id=f"C{i:02d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, 14)}",
             required_capacity=rng.choice([20, 25, 30, 40, 50]),
         )
@@ -202,18 +156,13 @@ def make_instance_60(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=4,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=4,
     )
 
 
 def make_instance_100(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 100: 100 courses, 20 professors, 8 rooms.
-    """
+    """100 courses, 20 professors, 8 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -223,24 +172,19 @@ def make_instance_100(seed: int = 42) -> CourseScheduleProblem:
 
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Professor_{i}",
+            id=f"P{i}", name=f"Professor_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
             preferred_slots=[],
         )
         for i in range(20)
     ]
-    # Set preferred slots as a random subset of available
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:03d}",
-            name=f"Course_{i}",
+            id=f"C{i:03d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, 19)}",
             required_capacity=rng.choice([20, 25, 30, 40, 50]),
         )
@@ -248,18 +192,13 @@ def make_instance_100(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=5,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=5,
     )
 
 
 def make_instance_125(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 125: 125 courses, 25 professors, 8 rooms.
-    """
+    """125 courses, 25 professors, 8 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -269,24 +208,19 @@ def make_instance_125(seed: int = 42) -> CourseScheduleProblem:
 
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Professor_{i}",
+            id=f"P{i}", name=f"Professor_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=rng.randint(12, len(ALL_SLOTS))),
             preferred_slots=[],
         )
         for i in range(25)
     ]
-    # Set preferred slots as a random subset of available
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:03d}",
-            name=f"Course_{i}",
+            id=f"C{i:03d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, 24)}",
             required_capacity=rng.choice([20, 25, 30, 40, 50]),
         )
@@ -294,19 +228,13 @@ def make_instance_125(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=5,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=5,
     )
 
 
 def make_instance_150(seed: int = 42) -> CourseScheduleProblem:
-    """
-    Instance 150: 150 courses, 30 professors, 8 rooms.
-    Tests extreme scalability (almost 95% density).
-    """
+    """150 courses, 30 professors, 8 rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -316,24 +244,19 @@ def make_instance_150(seed: int = 42) -> CourseScheduleProblem:
 
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Professor_{i}",
+            id=f"P{i}", name=f"Professor_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=rng.randint(15, len(ALL_SLOTS))),
             preferred_slots=[],
         )
         for i in range(30)
     ]
-    # Set preferred slots as a random subset of available
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:03d}",
-            name=f"Course_{i}",
+            id=f"C{i:03d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, 29)}",
             required_capacity=rng.choice([20, 25, 30, 40, 50]),
         )
@@ -341,15 +264,10 @@ def make_instance_150(seed: int = 42) -> CourseScheduleProblem:
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=6,
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=6,
     )
 
-
-# Random instance generator (parametric) — for scalability experiments
 
 def make_random_instance(
     n_courses: int,
@@ -357,10 +275,7 @@ def make_random_instance(
     n_rooms: int,
     seed: int = 0,
 ) -> CourseScheduleProblem:
-    """
-    Generate a random instance with the given number of courses, professors
-    and rooms. Used for scalability experiments.
-    """
+    """Generate a random instance with the given numbers of courses, professors, and rooms."""
     rng = random.Random(seed)
 
     rooms = [
@@ -368,12 +283,10 @@ def make_random_instance(
         for i in range(n_rooms)
     ]
 
-    # Clamp k so it never exceeds len(ALL_SLOTS)
     avail_k = max(len(ALL_SLOTS) // 2, min(n_courses, len(ALL_SLOTS)))
     professors = [
         Professor(
-            id=f"P{i}",
-            name=f"Prof_{i}",
+            id=f"P{i}", name=f"Prof_{i}",
             available_slots=rng.sample(ALL_SLOTS, k=avail_k),
             preferred_slots=[],
         )
@@ -381,14 +294,11 @@ def make_random_instance(
     ]
     for prof in professors:
         if prof.available_slots:
-            prof.preferred_slots = rng.sample(
-                prof.available_slots, k=min(4, len(prof.available_slots))
-            )
+            prof.preferred_slots = rng.sample(prof.available_slots, k=min(4, len(prof.available_slots)))
 
     courses = [
         Course(
-            id=f"C{i:03d}",
-            name=f"Course_{i}",
+            id=f"C{i:03d}", name=f"Course_{i}",
             professor_id=f"P{rng.randint(0, n_professors - 1)}",
             required_capacity=rng.choice([20, 25, 30, 40]),
         )
@@ -396,15 +306,10 @@ def make_random_instance(
     ]
 
     return CourseScheduleProblem(
-        courses=courses,
-        professors=professors,
-        rooms=rooms,
-        timeslots=ALL_SLOTS,
-        max_daily_courses=max(3, n_courses // 5),
+        courses=courses, professors=professors, rooms=rooms,
+        timeslots=ALL_SLOTS, max_daily_courses=max(3, n_courses // 5),
     )
 
-
-# Main — generate and save all standard instances
 
 if __name__ == "__main__":
     data_dir = Path(__file__).parent.parent / "data"
@@ -426,6 +331,6 @@ if __name__ == "__main__":
         print(f"[OK] Saved {name}: {problem}")
 
     print("\nAll instances generated successfully.")
-    print(f"  Timeslots per day : {len(HOURS)} blocks × 2h = {len(HOURS)*2}h covered")
-    print(f"  Total slots       : {len(ALL_SLOTS)} ({len(DAYS)} days × {len(HOURS)} slots)")
-    print(f"Files saved to: {data_dir.resolve()}")
+    print(f"  Slots per day : {len(HOURS)} blocks × 2h")
+    print(f"  Total slots   : {len(ALL_SLOTS)} ({len(DAYS)} days × {len(HOURS)} slots)")
+    print(f"Files saved to : {data_dir.resolve()}")
