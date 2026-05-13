@@ -1,8 +1,8 @@
 """
-Metrics — Shared evaluation metrics 
+Metrics
 
-All metrics used for comparing the three approaches.
-Called by run_experiments.py to produce tables and plots.
+Shared evaluation functions for comparing the three approaches.
+Called by run_experiments.py to produce result tables and plots.
 """
 
 import time
@@ -20,14 +20,12 @@ class EvaluationResult:
     instance_name: str
     n_courses: int
 
-    # Solution quality
-    hard_violations: int        # 0 = valid schedule
-    soft_score: float           # [0, 1], higher is better
-    is_valid: bool              # hard_violations == 0
+    hard_violations: int
+    soft_score: float
+    is_valid: bool
 
-    # Performance
     runtime_seconds: float
-    iterations: Optional[int] = None    # for iterative approaches
+    iterations: Optional[int] = None
 
     def __str__(self):
         status = "✓ VALID" if self.is_valid else f"✗ {self.hard_violations} violations"
@@ -43,29 +41,12 @@ def evaluate(
     problem: CourseScheduleProblem,
     solver_fn: Callable[[CourseScheduleProblem], Schedule],
 ) -> EvaluationResult:
-    """
-    Run a solver function and measure all metrics.
-
-    Parameters
-
-    approach_name : str
-        Human-readable name of the approach (e.g. "CSP", "SA", "Q-Learning")
-    instance_name : str
-        Name of the test instance (e.g. "small", "medium", "large")
-    problem : CourseScheduleProblem
-        The problem instance to solve
-    solver_fn : Callable
-        A function (problem) -> Schedule
-
-    Returns
-    
-    EvaluationResult with all metrics filled in
-    """
+    """Run solver_fn on problem, measure time, and return all evaluation metrics."""
     checker = ConstraintChecker(problem)
 
-    start = time.perf_counter()
+    start    = time.perf_counter()
     schedule = solver_fn(problem)
-    elapsed = time.perf_counter() - start
+    elapsed  = time.perf_counter() - start
 
     hard = checker.hard_violations(schedule)
     soft = checker.soft_score(schedule) if hard == 0 else 0.0
