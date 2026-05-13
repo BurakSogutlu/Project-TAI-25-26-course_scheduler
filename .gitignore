@@ -9,7 +9,14 @@ build/
 venv/
 *.log
 results/
-# *.png (removed to allow benchmark plots)
 *.pdf
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.nav
+*.out
+*.snm
+*.toc
 .DS_Store
 Thumbs.db

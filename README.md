@@ -2,7 +2,7 @@
 
 A comparison of three AI techniques applied to the **university course scheduling problem**:
 
-- **Approach A**: Constraint Satisfaction Problem (CSP) with Backtracking + AC-3
+- **Approach A**: Constraint Satisfaction Problem (CSP) with Backtracking + Forward Checking
 - **Approach B**: Local Search with Simulated Annealing
 - **Approach C**: Reinforcement Learning with Q-Learning
 
@@ -15,26 +15,34 @@ Given a set of courses, professors, rooms, and time slots, find a valid schedule
 ```
 course_scheduler/
 ├── core/
-│   ├── problem.py          # CourseScheduleProblem — shared data model
-│   ├── schedule.py         # Schedule — schedule representation
-│   ├── constraints.py      # ConstraintChecker — hard/soft constraint evaluation
+│   ├── problem.py              # CourseScheduleProblem — shared data model
+│   ├── schedule.py             # Schedule — schedule representation
+│   ├── constraints.py          # ConstraintChecker — hard/soft constraint evaluation
 │   └── instance_generator.py  # Random instance generator (small/medium/large)
 ├── approaches/
-│   ├── csp_solver.py       # Approach A: CSP + Backtracking + AC-3 (P2)
-│   ├── local_search.py     # Approach B: Hill Climbing + Simulated Annealing (P3)
-│   └── q_learning.py       # Approach C: Q-Learning (P4)
+│   ├── csp_solver.py           # Approach A: CSP + Backtracking + MRV/LCV/FC
+│   ├── csp_solver_timeout.py   # Approach A (Anytime): continues after first solution
+│   ├── local_search.py         # Approach B: Hill Climbing + Simulated Annealing
+│   └── q_learning.py           # Approach C: Q-Learning
 ├── evaluation/
-│   ├── metrics.py          # Shared evaluation metrics
-│   ├── run_experiments.py  # Run all approaches and generate comparison plots
-│   └── plots/              # Directory containing the generated graphs
+│   ├── metrics.py              # Shared evaluation metrics
+│   ├── run_experiments.py      # Run all approaches and generate comparison plots
+│   ├── results.csv             # Output: per-instance results table
+│   └── plots/                  # Output: generated graphs (soft score, time, violations)
 ├── data/
-│   ├── instance_05.json      # 5 courses, 3 professors, 3 rooms
-│   ├── instance_15.json      # 15 courses, 6 professors, 5 rooms
-│   ├── instance_30.json      # 30 courses, 10 professors, 8 rooms
-│   ├── instance_60.json      # 60 courses, 15 professors, 8 rooms
-│   ├── instance_100.json     # 100 courses, 20 professors, 8 rooms
-│   ├── instance_125.json     # 125 courses, 25 professors, 8 rooms
-│   └── instance_150.json     # 150 courses, 30 professors, 8 rooms
+│   ├── instance_05.json        # 5 courses, 3 professors, 3 rooms
+│   ├── instance_15.json        # 15 courses, 6 professors, 5 rooms
+│   ├── instance_30.json        # 30 courses, 10 professors, 8 rooms
+│   ├── instance_60.json        # 60 courses, 15 professors, 8 rooms
+│   ├── instance_100.json       # 100 courses, 20 professors, 8 rooms
+│   ├── instance_125.json       # 125 courses, 25 professors, 8 rooms
+│   └── instance_150.json       # 150 courses, 30 professors, 8 rooms
+├── Rapport/
+│   ├── INFO-H410_Groupe9.tex   # Full report (AAAI 2026 format)
+│   ├── INFO-H410_Groupe9.pdf   # Compiled report
+│   ├── presentation_groupe9.tex  # Beamer presentation slides
+│   ├── presentation_groupe9.pdf  # Compiled slides
+│   └── references.bib          # Bibliography
 ├── .gitignore
 ├── requirements.txt
 ├── plan_de_travail.md
@@ -45,22 +53,21 @@ course_scheduler/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/<your-username>/Project-TAI-25-26-course_scheduler.git
+git clone https://github.com/BurakSogutlu/Project-TAI-25-26-course_scheduler.git
 cd Project-TAI-25-26-course_scheduler
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
 # 3. Generate test instances (or use pre-generated ones in data/)
-python core/instance_generator.py
+python -m core.instance_generator
 
-# 4. Run a specific approach
-python approaches/csp_solver.py --instance data/instance_05.json
-python approaches/local_search.py --instance data/instance_15.json
-python approaches/q_learning.py --instance data/instance_05.json
-
-# 5. Run full comparison experiments
+# 4. Run full comparison experiments (all approaches, all instances)
 python evaluation/run_experiments.py
+
+# 5. Run a quick test for a specific approach (from project root)
+python -m approaches.local_search
+python -m approaches.q_learning
 ```
 
 ## Dependencies
@@ -69,12 +76,13 @@ See `requirements.txt`. Python 3.9+ recommended.
 
 ## Authors
 
-- Burak Sogutlu (architecture, problem formulation, evaluation)
-- Gregoire Van den Eynde (CSP approach)
-- Urielle Nkwinga (Local Search approach)
-- Nasssim Machichi (Q-Learning approach)
+- Burak Sogutlu
+- Grégoire Van den Eynde
+- Urielle Nkwinga
+- Nassim Machichi
 
 ## Course
 
-INFO-H410 — Techniques of Artificial Intelligence
-MA1 Ingénieur Civil — Université Libre de Bruxelles, 2025–2026
+INFO-H410 — Techniques of Artificial Intelligence  
+MA1 Ingénieur Civil — Université Libre de Bruxelles, 2025–2026  
+Groupe 9
